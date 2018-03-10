@@ -3,4 +3,4 @@ services:
   app:
     build: .
     ports:
-      - "7878:7878" 
+      - "80:80" 

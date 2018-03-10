@@ -5,6 +5,6 @@ import (
 	"net/http"
 )
 
-func Doc(c *gin.Context) {
+func Documentation(c *gin.Context) {
 	c.Redirect(http.StatusMovedPermanently, "/doc")
 }

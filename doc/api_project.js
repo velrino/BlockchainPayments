@@ -1,5 +1,5 @@
 define({
-  "name": "RedFull",
+  "name": "Blockchain Payments",
   "version": "1.0.0",
   "description": "API Documentation with ApiDocs",
   "sampleUrl": false,
@@ -7,7 +7,7 @@ define({
   "apidoc": "0.3.0",
   "generator": {
     "name": "apidoc",
-    "time": "2018-03-10T02:03:54.439Z",
+    "time": "2018-03-10T02:21:40.277Z",
     "url": "http://apidocjs.com",
     "version": "0.17.6"
   }
