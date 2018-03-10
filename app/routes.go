@@ -2,18 +2,30 @@ package app
 
 import (
 	"github.com/gin-gonic/gin"
-	Controllers "github.com/velrino/BlockchainPayments/app/controllers"
+	. "github.com/velrino/BlockchainPayments/app/controllers"
 )
 
-func Routes() {
+func Routes()  {
 	router := gin.Default()
 
-	router.GET("/", Controllers.Documentation)
 	router.Static("/doc", "./doc")
 
-	API := router.Group("/api")
-	API.GET("/calculate",  Controllers.Calculate)
-	API.GET("/calculate/:crypto",  Controllers.Calculate)
+	Wallet := router.Group("/wallet")
+	{
+		Wallet.GET("/:coin", TransactionController{}.Wallet)
+	}
+
+	CryptoCurrency := router.Group("/coin")
+	{
+		CryptoCurrency.GET("/:coin",  InfoController{}.Get)
+		CryptoCurrency.GET("/:coin/:value",  InfoController{}.Calculate)
+	}
+
+	Transaction := router.Group("/transaction")
+	{
+		Transaction.GET("/:id",  InfoController{}.Calculate)
+		Transaction.POST("/",  InfoController{}.Calculate)
+	}
 
 	router.Run(":80")
 }
