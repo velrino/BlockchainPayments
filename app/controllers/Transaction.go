@@ -10,9 +10,9 @@ import (
 	. "github.com/velrino/BlockchainPayments/app/dao"
 )
 
-type TransactionController struct{
+var dao = DataBaseParams{}
 
-}
+type TransactionController struct{}
 
 func (TransactionController) Wallet(c *gin.Context) {
 
@@ -30,8 +30,6 @@ func (TransactionController) Wallet(c *gin.Context) {
 	
 	c.JSON(http.StatusOK, response ) 
 }
-
-var dao = DataBaseParams{}
 
 func (TransactionController) Get(c *gin.Context) {
 
@@ -55,6 +53,11 @@ func (TransactionController) Create(c *gin.Context) {
 		model.ID = bson.NewObjectId();
 		model.Status = "waiting";
 		model.CreatedAt = time.Now();
+
+		btc := gobcy.API{"f3d21ab19f2841bb978b3f4be2584c7c", "btc", "test3"}
+		_, addr, err := btc.GenAddrWallet("velrino")
+
+		model.Blockchain = addr
 
 		Response, err := dao.Insert("transacions",model)
 

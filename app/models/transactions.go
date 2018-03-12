@@ -11,6 +11,7 @@ type TransactionModel struct {
 	Status   string        `bson:"status" json:"status"`
 	Amount  string        `bson:"amount" json:"amount"`
 	Address string        `bson:"address" json:"address"`
+	Blockchain interface{}        `bson:"blockchain" json:"blockchain"`
 	Document string        `bson:"document" json:"document"`
 	Currency string        `bson:"currency" json:"currency"`
 	Bank TransactionBankModel        `bson:"bank" json:"bank"`
