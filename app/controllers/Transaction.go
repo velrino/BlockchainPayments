@@ -33,9 +33,13 @@ func (TransactionController) Wallet(c *gin.Context) {
 
 var dao = DataBaseParams{}
 
-func (TransactionController) List(c *gin.Context) {
+func (TransactionController) Get(c *gin.Context) {
+
+	id := c.Param("id")
+
 	var model TransactionModel
-	Response, err := dao.FindById("transacions",model,"5aa5cc722f2eeb496f8c2fc8")
+
+	Response, err := dao.FindById("transacions",model,id)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
@@ -43,18 +47,22 @@ func (TransactionController) List(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": Response})
 }
 
-func (TransactionController) CreateTransaction(c *gin.Context) {
+func (TransactionController) Create(c *gin.Context) {
 	var model TransactionModel
+	
 	if err := c.ShouldBindJSON(&model); err == nil {	
+		
 		model.ID = bson.NewObjectId();
 		model.Status = "waiting";
 		model.CreatedAt = time.Now();
 
 		Response, err := dao.Insert("transacions",model)
+
 		if err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 			return
 		}
+		
 		c.JSON(http.StatusOK, gin.H{"data": Response})
 		
 	} else {

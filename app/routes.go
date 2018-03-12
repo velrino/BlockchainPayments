@@ -23,9 +23,8 @@ func Routes()  {
 
 	Transaction := router.Group("/transaction")
 	{
-		Transaction.GET("/",  TransactionController{}.List)
-		//Transaction.GET("/:id",  TransactionController{}.List)
-		Transaction.POST("/",  TransactionController{}.CreateTransaction)
+		Transaction.GET("/:id",  TransactionController{}.Get)
+		Transaction.POST("/",  TransactionController{}.Create)
 	}
 
 	router.Run(":80")
