@@ -14,7 +14,7 @@ func Run() {
 	}
 	switch cmd {
 	case "migrations":
-		Migrations()
+		//Migrations()
 	default:
 		Routes()
 	}
