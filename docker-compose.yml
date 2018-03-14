@@ -5,8 +5,10 @@ services:
     image: mongo:3.7.1
     container_name: mongodb
     ports:
-      - 27017:27017
+      - "27017:27017"
   app:
     build: .
+    links:
+      - mongodb
     ports:
       - "80:80" 
