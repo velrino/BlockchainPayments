@@ -12,7 +12,7 @@ type DataBaseParams struct {
 var db *mgo.Database
 // Establish a connection to database
 func (m *DataBaseParams) Connect() {
-	session, err := mgo.Dial("mongodb://172.17.0.1:27018")
+	session, err := mgo.Dial("mongodb://mongodb:27017")
 	if err != nil {
 		panic("failed to connect database")
 	}
