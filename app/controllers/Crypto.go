@@ -9,14 +9,14 @@ import (
 	. "github.com/velrino/BlockchainPayments/app/responses"
 )
 
-type InfoController struct{}
+type CryptoController struct{}
 
 var (
 	baseURL  = "https://api.coinmarketcap.com/v1"
 	tickerBRL  = "https://api.coinmarketcap.com/v1/ticker/COIN/?convert=BRL"
 )
 
-func (InfoController) Get(c *gin.Context) {
+func (CryptoController) Get(c *gin.Context) {
 
 	coin := c.Param("coin")
 	
@@ -45,14 +45,10 @@ func (InfoController) Get(c *gin.Context) {
 	return
 }
 
-func (InfoController) Calculate(c *gin.Context) {
+func (CryptoController) Calculate(c *gin.Context) {
 
 	coin := c.Param("coin")
-	value, err := strconv.ParseFloat(c.Param("value") ,64)
-	
-	if err != nil {
-		response = gin.H{"message": "Fail Float"}
-	}
+	value, _ := strconv.ParseFloat(c.Param("value") ,64)
 	
 	var replacer = strings.NewReplacer("COIN", coin)
 	str := "https://api.coinmarketcap.com/v1/ticker/COIN/?convert=BRL"
@@ -69,15 +65,11 @@ func (InfoController) Calculate(c *gin.Context) {
 
 	json.NewDecoder(resp.Body).Decode(&data)
 	
-	PriceBrl, err := strconv.ParseFloat(data[0].PriceBrl ,64)
-	
-	if err != nil {
-		response = gin.H{"message": "Fail Float"}
-	}
-	
+	PriceBrl, _ := strconv.ParseFloat(data[0].PriceBrl ,64)
+		
 	data[0].Calculate = (value/PriceBrl)
 	
-	c.JSON(http.StatusOK, data[0]  ) 
+	c.JSON(http.StatusOK, data[0] ) 
 	return
 }
 

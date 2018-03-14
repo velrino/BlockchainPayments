@@ -36,10 +36,14 @@ func (TransactionController) Get(c *gin.Context) {
 	id := c.Param("id")
 
 	var model TransactionModel
-
+	idCheck := bson.IsObjectIdHex(id)
+	if idCheck != true {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "ID invalid"})
+		return
+	}
 	Response, err := dao.FindById("transacions",model,id)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err})
 		return
 	}
 	c.JSON(http.StatusOK, gin.H{"data": Response})
